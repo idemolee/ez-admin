@@ -17,7 +17,7 @@ export const growCardList: GrowCardItem[] = [
     action: '月',
   },
   {
-    title: '成交额',
+    title: '处理数据',
     icon: 'total-sales|svg',
     value: 20000,
     total: 500000,
@@ -33,7 +33,7 @@ export const growCardList: GrowCardItem[] = [
     action: '周',
   },
   {
-    title: '成交数',
+    title: '完成数',
     icon: 'transaction|svg',
     value: 5000,
     total: 50000,

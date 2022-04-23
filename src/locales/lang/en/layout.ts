@@ -2,7 +2,7 @@ export default {
   footer: { onlinePreview: 'Preview', onlineDocument: 'Document' },
   header: {
     // user dropdown
-    dropdownItemDoc: 'Document',
+    dropdownItemDoc: 'Setting',
     dropdownItemLoginOut: 'Login Out',
 
     tooltipErrorLog: 'Error log',

@@ -1,6 +1,6 @@
 <template>
   <div id="components-table-demo-size">
-    <a-table :columns="columns" :data-source="iforms" size="small" />
+    <a-table :columns="columns" :data-source="iforms" :pagination='{pageSize:16}' size="small" />
   </div>
 </template>
 

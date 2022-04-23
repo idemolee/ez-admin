@@ -63,8 +63,8 @@
             data: [
               { value: 1048, name: '搜索引擎' },
               { value: 735, name: '直接访问' },
-              { value: 580, name: '邮件营销' },
-              { value: 484, name: '联盟广告' },
+              { value: 580, name: '邮件访问' },
+              { value: 484, name: '链接导航' },
             ],
             animationType: 'scale',
             animationEasing: 'exponentialInOut',

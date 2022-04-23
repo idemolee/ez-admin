@@ -52,7 +52,7 @@ export default defineComponent({
         console.log(forms.value);
         console.log(currentComponent.value);
         })
-      .catch(error => alert('Error！!'));
+      .catch(error => alert('Error!!'));
       };
     return {
       forms,

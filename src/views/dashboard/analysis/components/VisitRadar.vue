@@ -31,7 +31,7 @@
       setOptions({
         legend: {
           bottom: 0,
-          data: ['访问', '购买'],
+          data: ['访问', '处理'],
         },
         tooltip: {},
         radar: {
@@ -39,19 +39,19 @@
           splitNumber: 8,
           indicator: [
             {
-              text: '电脑',
+              text: 'apple',
               max: 100,
             },
             {
-              text: '充电器',
+              text: 'list',
               max: 100,
             },
             {
-              text: '耳机',
+              text: 'code',
               max: 100,
             },
             {
-              text: '手机',
+              text: 'coco',
               max: 100,
             },
             {
@@ -59,7 +59,7 @@
               max: 100,
             },
             {
-              text: '耳机',
+              text: 'less',
               max: 100,
             },
           ],
@@ -85,7 +85,7 @@
               },
               {
                 value: [70, 75, 70, 76, 20, 85],
-                name: '购买',
+                name: '处理',
                 itemStyle: {
                   color: '#5ab1ef',
                 },

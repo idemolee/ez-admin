@@ -40,6 +40,15 @@ const dashboard: AppRouteModule = {
         keepAlive:true,
       },
     },
+    {
+      path: 'upload',
+      name: 'Upload',
+      component: () => import('/@/views/dashboard/upload/index.vue'),
+      meta: {
+        title: t('routes.dashboard.upload'),
+        keepAlive:true,
+      },
+    },
   ],
 };
 

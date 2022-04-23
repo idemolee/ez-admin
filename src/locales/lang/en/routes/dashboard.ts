@@ -4,4 +4,5 @@ export default {
   workbench: 'Workbench',
   analysis: 'Analysis',
   tasks:'Tasks',
+  upload:'Upload',
 };
