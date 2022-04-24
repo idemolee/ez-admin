@@ -19,7 +19,7 @@
       <a-button type="primary" size="large" @click="compute" :disabled='!value2'>Start Now</a-button>
       </a-col>
     </a-row>
-      <component :is="currentComponent" :forms='forms' :key='new Date().getTime()'></component>
+      <component :is="currentComponent" :forms='aforms' :key='new Date().getTime()'></component>
   </div>
 </template>
 
@@ -40,7 +40,7 @@ export default defineComponent({
     const value1 = ref('a');
     const value2 = ref();
     const currentComponent = ref();
-    const forms = ref();
+    const aforms = ref();
     const compute = () => {
       axios.post('http://127.0.0.1:5000/index',{
         task:value1.value,
@@ -48,14 +48,12 @@ export default defineComponent({
       })
       .then(response => {
         currentComponent.value = response.data.task;
-        forms.value = response.data.forms;
-        console.log(forms.value);
-        console.log(currentComponent.value);
+        aforms.value = response.data.forms;
         })
       .catch(error => alert('Error!!'));
       };
     return {
-      forms,
+      aforms,
       compute,
       value1,
       value2,

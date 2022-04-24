@@ -5,4 +5,5 @@ export default {
   analysis: '分析页',
   tasks:'任务栏',
   upload:'上传页',
+  search:'搜索栏',
 };

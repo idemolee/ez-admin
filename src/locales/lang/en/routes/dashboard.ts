@@ -5,4 +5,5 @@ export default {
   analysis: 'Analysis',
   tasks:'Tasks',
   upload:'Upload',
+  search:'Search',
 };

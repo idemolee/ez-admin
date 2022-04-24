@@ -49,6 +49,15 @@ const dashboard: AppRouteModule = {
         keepAlive:true,
       },
     },
+    {
+      path: 'search',
+      name: 'Search',
+      component: () => import('/@/views/dashboard/search/index.vue'),
+      meta: {
+        title: t('routes.dashboard.search'),
+        keepAlive:true,
+      },
+    },
   ],
 };
 
