@@ -1,7 +1,7 @@
 <template>
   <div class="site-layout-content">
   <a-row>
-    <a-col :span='3'>
+    <a-col :span='4' :offset='1'>
     <a-select
       ref="select"
       v-model:value="values"
@@ -13,7 +13,7 @@
     >
     </a-select>
     </a-col>
-    <a-col :span='6'>
+    <a-col :span='19'>
     <a-upload
     v-model:file-list="fileList"
     name="file"
@@ -83,6 +83,7 @@ export default defineComponent({
 
 <style scoped>
 .site-layout-content{
+  margin-top: 10px;
   padding:15px 15px;
 }
 </style>

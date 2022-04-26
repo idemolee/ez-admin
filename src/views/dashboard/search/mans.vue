@@ -20,84 +20,135 @@
 </div>
 </a-collapse-panel>
 <a-collapse-panel key="2" header="月考核">
-  <div style="background-color:#f5f5f5; padding: 10px">
+  <div v-if="aform[0]">
+  <div style="background-color:#fafafa; padding: 10px; margin:5px 20px">
     <a-row :gutter="16">
-      <a-col :span="8" style="margin-bottom:6px">
-      <a-badge-ribbon :text="aform[0].text" :color="aform[0].color">
-        <a-card :title="aform[0].date" :hoverable="true" @click="showDrawer(aform[0].date)">
-          <p>基础分：{{aform[0].base}}</p>
-          <p>月总分：{{aform[0].total}}</p>
-        </a-card>
-      </a-badge-ribbon>
-      </a-col>
-      <a-col :span="8">
-      <a-badge-ribbon :text="aform[1].text" :color="aform[1].color">
-        <a-card :title="aform[1].date" :hoverable="true" @click="showDrawer(aform[1].date)">
-          <p>基础分：{{aform[1].base}}</p>
-          <p>月总分：{{aform[1].total}}</p>
-        </a-card>
-      </a-badge-ribbon>
-      </a-col>
-      <a-col :span="8">
-      <a-badge-ribbon :text="aform[2].text" :color="aform[2].color">
-        <a-card :title="aform[2].date" :hoverable="true" @click="showDrawer(aform[2].date)">
-          <p>基础分：{{aform[2].base}}</p>
-          <p>月总分：{{aform[2].total}}</p>
-        </a-card>
-      </a-badge-ribbon>
-      </a-col>
-      <a-col :span="8">
-      <a-badge-ribbon :text="aform[3].text" :color="aform[3].color">
-        <a-card :title="aform[3].date" :hoverable="true" @click="showDrawer(aform[3].date)">
-          <p>基础分：{{aform[3].base}}</p>
-          <p>月总分：{{aform[3].total}}</p>
-        </a-card>
-      </a-badge-ribbon>
-      </a-col>
-      <a-col :span="8">
-      <a-badge-ribbon :text="aform[4].text" :color="aform[4].color">
-        <a-card :title="aform[4].date" :hoverable="true" @click="showDrawer(aform[4].date)">
-          <p>基础分：{{aform[4].base}}</p>
-          <p>月总分：{{aform[4].total}}</p>
+      <a-col v-for="a in aform" :span="8" style="margin-bottom:10px">
+      <a-badge-ribbon :text="a.text" :color="a.color">
+        <a-card :title="a.date" :hoverable="true" @click="showDrawer(a.num,a.date)">
+          <p>基础分：{{a.base}}</p>
+          <p>月总分：{{a.total}}</p>
         </a-card>
       </a-badge-ribbon>
       </a-col>
     </a-row>
   </div>
+  </div>
+  <div v-else><a-empty /></div>
 </a-collapse-panel>
-<a-collapse-panel key="3" header="等级评定"><p>3</p></a-collapse-panel>
+<a-collapse-panel key="3" header="等级评定">
+  <div v-if="pform[0]">
+   <a-card v-for="i in pform" :title="i.date" class="card-styl" :hoverable="true">
+   <template #extra><a-button type="primary" @click="showPraise(i.num,i.date,i.surplus)">More</a-button></template>
+   <a-row><a-col :span="16">
+    <p>等级评定：{{ i.rank }}</p>
+    <p>结果适用：{{ i.result }}</p>
+    <p>转换剩余：{{ i.surplus }}</p>
+    <p>根据《细则》第七章 第五十四条 规定，拟同意管教民警对该罪犯的等级评定建议，并拟按规定给予相应奖励。</p>
+    </a-col>
+    <a-col :span="2"><div class="ac-div"></div></a-col>
+    </a-row>
+  </a-card>
+  </div>
+  <div v-else><a-empty /></div>
+</a-collapse-panel>
 </a-collapse>
  <a-drawer
     v-model:visible="visible"
     class="custom-class"
-    title="日记载"
+    :title="titles"
     placement="right"
-    width="800"
+    width="600"
     @after-visible-change="afterVisibleChange"
   >
-  <div>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
+  <div v-if="status==1">
+    <a-row v-for="s in showData">
+      <p :style="{
+      fontSize: '16px',
+      color: s.score>0?'green':'red',
+      lineHeight: '24px',
+      display: 'block',
+      marginBottom: '16px',
+    }">{{s.date}}</p>
+      <a-col>{{s.part}}：{{s.score}}</a-col>
+      <a-col>处理民警：{{s.police}}</a-col>
+      <a-col>事由：{{s.reason}}</a-col>
+      <a-col>条款：{{s.clause}}</a-col>
+      <a-divider />
+     </a-row> 
+  </div>
+  <div v-else-if="status==2">
+    <a-timeline>
+    <a-timeline-item v-for="i in praiseData" :color="i.pass">
+      <p :style="{fontSize:'16px',lineHeight: '24px'}">{{ i.day }}</p>
+      <a-row><a-col :span="11">
+      <p v-if="i.score1">监管改造：{{ i.score1 }}</p>
+      <p v-if="i.score2">文化教育：{{ i.score2 }}</p>
+      </a-col><a-col :span="13">
+      <p v-if="i.score3">劳动改造：{{ i.score3 }}</p>
+      <p v-if="i.score4">专项加分：{{ i.score4 }}</p>
+      </a-col></a-row>
+      <p>当月考核分：{{ i.score }}</p>
+      <p>累计考核分：{{ i.sum }}</p>
+      <a-divider/>
+    </a-timeline-item>
+    <a-timeline-item color="blue">
+      <template #dot>
+        <sync-outlined spin/>
+      </template>
+      <p>转换后剩余：{{ surplusP }}</p>
+    </a-timeline-item>
+  </a-timeline>
   </div>
   </a-drawer>
 </template>
 <script>
 import { defineComponent, ref } from 'vue';
+import axios from 'axios';
 export default defineComponent({
 props:['formdata'],
 setup(props,context){
     const iforms = props.formdata.res;
     const aform = props.formdata.res1;
     const pform = props.formdata.res2;
-    const activeKey = ref(['1']);
+    const activeKey = ref(['1','2','3']);
     const visible = ref(false);
+    const showData = ref();
+    const status = ref();
+    const praiseData = ref();
+    const titles = ref();
+    const surplusP = ref();
+    const showPraise = (pnum,pdate,p) => {
+      axios.post('http://127.0.0.1:5000/getPraise',{
+        praiseNum:pnum,
+        praiseDate:pdate,
+      })
+      .then(response => {
+        titles.value = '考核周期';
+        status.value = 2;
+        surplusP.value = p;
+        praiseData.value = response.data.res;
+        console.log(praiseData.value);
+        visible.value = true;
+        })
+      .catch(error => alert('Error!!'));
+    };
     const afterVisibleChange = bool => {
       console.log('visible', bool);
     };
-    const showDrawer = (e) => {
-      console.log(e);
-      visible.value = true;
+    const showDrawer = (num,date) => {
+      axios.post('http://127.0.0.1:5000/show',{
+        showNum:num,
+        showDay:date,
+      })
+      .then(response => {
+        titles.value = '日记载';
+        status.value = 1;
+        showData.value = response.data.res;
+        console.log(showData.value);
+        visible.value = true;
+        })
+      .catch(error => alert('Error!!'));
     };
 
 return{
@@ -108,6 +159,12 @@ return{
     visible,
     afterVisibleChange,
     showDrawer,
+    showData,
+    praiseData,
+    showPraise,
+    status,
+    titles,
+    surplusP,
 }
 },
 })
@@ -116,5 +173,17 @@ return{
 .man-bg{
   margin: 15px 20px;
   background:white;
+}
+.card-styl{
+  padding: 10px 30px;
+  margin: 40px 20px;
+  background-color: #F6F6F6;
+}
+.ac-div{
+  background:url('http://127.0.0.1:5000/static/003.jpeg') no-repeat center;
+  background-size:105% 105%;
+  height:130px;
+  width: 130px;
+
 }
 </style>

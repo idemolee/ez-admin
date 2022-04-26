@@ -1,8 +1,9 @@
 <template>
   <div class="my-search-form">
   <a-row>
-  <a-col :span="12" :offset="1"><right-outlined :style="{fontSize:'18px'}"/>
-  <a-select
+    <a-col :span="23" :offset="1">
+    <right-outlined :style="{fontSize:'25px'}"/>
+    <a-select
     v-model:value="value"
     show-search
     placeholder="input search text"
@@ -16,8 +17,8 @@
     size="large"
     @search="handleSearch"
     @change="handleChange"
-  ></a-select>
-  </a-col>
+    ></a-select>
+    </a-col>
   </a-row>
   <component :is="currentComponent" :formdata='manform' :key='new Date().getTime()'></component>
   </div>
