@@ -55,12 +55,14 @@
 </a-collapse>
  <a-drawer
     v-model:visible="visible"
-    class="custom-class"
     :title="titles"
     placement="right"
     width="600"
     @after-visible-change="afterVisibleChange"
   >
+  <template #extra>
+    <a-button type="primary" v-print="print" @click="printMe">打印</a-button>
+  </template>
   <div v-if="status==1">
     <a-row v-for="s in showData">
       <p :style="{
@@ -101,13 +103,21 @@
   </a-timeline>
   </div>
   </a-drawer>
+  <div id="printArea" v-show="toshow">
+  <component :is="currentComponent" :postdata='detailData' :key='new Date().getTime()'></component>
+  </div>
 </template>
 <script>
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
+import praiseTable from './tablePraise.vue'
 export default defineComponent({
+components:{
+  praiseTable,
+  },
 props:['formdata'],
 setup(props,context){
+    const currentComponent = ref();
     const iforms = props.formdata.res;
     const aform = props.formdata.res1;
     const pform = props.formdata.res2;
@@ -116,8 +126,10 @@ setup(props,context){
     const showData = ref();
     const status = ref();
     const praiseData = ref();
+    const detailData = ref();
     const titles = ref();
     const surplusP = ref();
+    const toshow = ref(false);
     const showPraise = (pnum,pdate,p) => {
       axios.post('http://127.0.0.1:5000/getPraise',{
         praiseNum:pnum,
@@ -128,12 +140,14 @@ setup(props,context){
         status.value = 2;
         surplusP.value = p;
         praiseData.value = response.data.res;
-        console.log(praiseData.value);
+        detailData.value = response.data.detail;
+        console.log(detailData.value);
         visible.value = true;
         })
       .catch(error => alert('Error!!'));
     };
     const afterVisibleChange = bool => {
+      toshow.value = bool;
       console.log('visible', bool);
     };
     const showDrawer = (num,date) => {
@@ -150,7 +164,9 @@ setup(props,context){
         })
       .catch(error => alert('Error!!'));
     };
-
+    const printMe = () => {
+      currentComponent.value = praiseTable;
+    }
 return{
     iforms,
     aform,
@@ -161,10 +177,18 @@ return{
     showDrawer,
     showData,
     praiseData,
+    detailData,
     showPraise,
     status,
     titles,
     surplusP,
+    currentComponent,
+    printMe,
+    toshow,
+    print: {
+        id: 'printArea',
+        popTitle: '打印', 
+      },
 }
 },
 })
@@ -184,6 +208,5 @@ return{
   background-size:105% 105%;
   height:130px;
   width: 130px;
-
 }
 </style>

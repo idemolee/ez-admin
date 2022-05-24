@@ -1,5 +1,5 @@
 <template>
-  <Card title="访问来源" :loading="loading">
+  <Card title="加扣分数据" :loading="loading" :resData="resdata">  <!--获取父组件resData-->
     <div ref="chartRef" :style="{ width, height }"></div>
   </Card>
 </template>
@@ -7,8 +7,9 @@
   import { Ref, ref, watch } from 'vue';
   import { Card } from 'ant-design-vue';
   import { useECharts } from '/@/hooks/web/useECharts';
-  const props = defineProps({
+  const props = defineProps({  //获取resData数据(resdata)
     loading: Boolean,
+    resdata: String,
     width: {
       type: String as PropType<string>,
       default: '100%',
@@ -25,7 +26,9 @@
     () => {
       if (props.loading) {
         return;
-      }
+      };
+      //get resdata
+      console.log(props.resdata),
       setOptions({
         tooltip: {
           trigger: 'item',
@@ -37,7 +40,7 @@
         series: [
           {
             color: ['#5ab1ef', '#b6a2de', '#67e0e3', '#2ec7c9'],
-            name: '访问来源',
+            name: '数据来源',
             type: 'pie',
             radius: ['40%', '70%'],
             avoidLabelOverlap: false,
@@ -61,10 +64,10 @@
               show: false,
             },
             data: [
-              { value: 1048, name: '搜索引擎' },
-              { value: 735, name: '直接访问' },
-              { value: 580, name: '邮件访问' },
-              { value: 484, name: '链接导航' },
+              { value: 1048, name: '专项' },
+              { value: 735, name: '超产' },
+              { value: 580, name: '违规' },
+              { value: 484, name: '其他' },
             ],
             animationType: 'scale',
             animationEasing: 'exponentialInOut',

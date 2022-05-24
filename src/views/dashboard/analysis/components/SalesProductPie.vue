@@ -1,5 +1,5 @@
 <template>
-  <Card title="完成比" :loading="loading">
+  <Card title="等级评定" :loading="loading">
     <div ref="chartRef" :style="{ width, height }"></div>
   </Card>
 </template>
@@ -41,10 +41,10 @@
             center: ['50%', '50%'],
             color: ['#5ab1ef', '#b6a2de', '#67e0e3', '#2ec7c9'],
             data: [
-              { value: 500, name: 'computer' },
-              { value: 310, name: 'apple' },
-              { value: 274, name: 'coco' },
-              { value: 400, name: 'mimi' },
+              { value: 500, name: '未参与评定' },
+              { value: 310, name: '积极' },
+              { value: 274, name: '不合格' },
+              { value: 400, name: '合格' },
             ].sort(function (a, b) {
               return a.value - b.value;
             }),

@@ -10,7 +10,8 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
+  import axios from 'axios';
   import GrowCard from './components/GrowCard.vue';
   import SiteAnalysis from './components/SiteAnalysis.vue';
   import VisitSource from './components/VisitSource.vue';
@@ -18,8 +19,17 @@
   import SalesProductPie from './components/SalesProductPie.vue';
 
   const loading = ref(true);
-
+  const resData = ref();
+  //获取数据
+  onMounted(()=>{
+    axios.post('http://127.0.0.1:5000/analysis')
+    .then(response => {
+      resData.value = response.data;
+      console.log(response.data);
+    })
+    .catch(error => alert('Error!!'));
+  });
   setTimeout(() => {
     loading.value = false;
-  }, 1500);
+  }, 1200);
 </script>

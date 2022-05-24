@@ -1,5 +1,5 @@
 <template>
-  <Card title="转化率" :loading="loading">
+  <Card title="分数范围" :loading="loading">
     <div ref="chartRef" :style="{ width, height }"></div>
   </Card>
 </template>
@@ -39,27 +39,27 @@
           splitNumber: 8,
           indicator: [
             {
-              text: 'apple',
+              text: '<100',
               max: 100,
             },
             {
-              text: 'list',
+              text: '>140',
               max: 100,
             },
             {
-              text: 'code',
+              text: '130-140',
               max: 100,
             },
             {
-              text: 'coco',
+              text: '120-130',
               max: 100,
             },
             {
-              text: 'Ipad',
+              text: '110-120',
               max: 100,
             },
             {
-              text: 'less',
+              text: '100-110',
               max: 100,
             },
           ],
@@ -76,15 +76,15 @@
               opacity: 1,
             },
             data: [
+              // {
+              //   value: [90, 50, 86, 40, 50, 20],
+              //   name: '访问',
+              //   itemStyle: {
+              //     color: '#b6a2de',
+              //   },
+              // },
               {
-                value: [90, 50, 86, 40, 50, 20],
-                name: '访问',
-                itemStyle: {
-                  color: '#b6a2de',
-                },
-              },
-              {
-                value: [70, 75, 70, 76, 20, 85],
+                value: [40, 25, 60, 76, 90, 75],
                 name: '处理',
                 itemStyle: {
                   color: '#5ab1ef',
