@@ -7,8 +7,6 @@
       v-model:value="values"
       style="width: 120px"
       :options="options"
-      @focus="focus"
-      @change="handleChange1"
       size='large'
     >
     </a-select>
@@ -24,17 +22,20 @@
     >
     <a-button size='large' block>
       <upload-outlined></upload-outlined>
-      Click to Upload
+      点击上传
     </a-button>
     </a-upload>
     </a-col>
     </a-row>
+    <div>
+    </div>
   </div>
 </template>
 <script>
 import { message } from 'ant-design-vue';
 import { UploadOutlined } from '@ant-design/icons-vue';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
+const role = sessionStorage.getItem('role');
 export default defineComponent({
   components: {
     UploadOutlined,
@@ -51,30 +52,42 @@ export default defineComponent({
       }
     };
     const fileList = ref([]);
-    const focus = () => {
-      console.log('focus');
-    };
-    const handleChange1 = value => {
-      console.log(`selected ${value}`);
-    };
-    const options = ref([
-      {value:'1',label:'月报表',},
-      {value:'2',label:'加扣分',},
-    ]);
-    const values = ref('1');
+    const options = ref();
+    const values = ref('请选择');
     const toUrl = () => {
-      return "http://127.0.0.1:5000/upload/"+values.value
+      return "/basic-api/upload/"+values.value
     }
+    onMounted(()=>{
+      if(role=='super'){
+        options.value = [
+          {value:'0',label:'数据表',},
+          {value:'11',label:'月报表',},
+          {value:'22',label:'加扣分',},
+          {value:'33',label:'记录表',},
+          {value:'44',label:'互监组',},
+        ];
+      }else if(role=='manage'||role=='admin'){
+        options.value = [
+          {value:'2',label:'加扣分',},
+          {value:'3',label:'记录表',},
+          {value:'4',label:'互监组',},
+        ];
+      }else{
+        options.value = [
+          {value:'2',label:'加扣分',},
+          {value:'4',label:'互监组',},
+        ]
+      };
+    });
     return {
+      role,
       toUrl,
       values,
-      focus,
       options,
       fileList,
       headers: {
         authorization: 'authorization-text',
       },
-      handleChange1,
       handleChange2,
     };
   },

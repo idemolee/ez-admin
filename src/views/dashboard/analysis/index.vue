@@ -22,7 +22,7 @@
   const resData = ref();
   //获取数据
   onMounted(()=>{
-    axios.post('http://127.0.0.1:5000/analysis')
+    axios.post('/basic-api/analysis')
     .then(response => {
       resData.value = response.data;
       console.log(response.data);

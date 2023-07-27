@@ -1,14 +1,14 @@
 import type { AppRouteModule } from '/@/router/types';
-
 import { LAYOUT } from '/@/router/constant';
 import { t } from '/@/hooks/web/useI18n';
-
+import { RoleEnum } from '/@/enums/roleEnum';
 const dashboard: AppRouteModule = {
   path: '/about',
   name: 'About',
   component: LAYOUT,
   redirect: '/about/index',
   meta: {
+    roles: [RoleEnum.SUPER],
     hideChildrenInMenu: true,
     icon: 'simple-icons:about-dot-me',
     title: t('routes.dashboard.about'),

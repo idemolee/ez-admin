@@ -3,11 +3,9 @@
     <a-row>
       <a-col :span='10' :offset='1'>
       <a-radio-group v-model:value="value1" size="large">
-        <a-radio-button value="a">超产分</a-radio-button>
-        <a-radio-button value="b" disabled>互监组</a-radio-button>
-        <a-radio-button value="c" disabled>月奖</a-radio-button>
-        <a-radio-button value="d">转表扬</a-radio-button>
-        <a-radio-button value="e">月报表</a-radio-button>
+        <a-radio-button value="labor" disabled>超产分</a-radio-button>
+        <a-radio-button value="report">月报表</a-radio-button>
+        <a-radio-button value="praise">转表扬</a-radio-button>
       </a-radio-group>
       </a-col>
       <a-col :span='4' :offset="1">
@@ -27,22 +25,26 @@
 import { defineComponent, ref } from 'vue';
 import dayjs from 'dayjs';
 import axios from 'axios';
-import e from './Table.vue';
-import a from './Hello.vue';
-import d from './Praise.vue';
+import report from './Table.vue';
+import labor from './Hello.vue';
+import praise from './Praise.vue';
+import group from './Group.vue';
+import reward from './Reward.vue';
 export default defineComponent({
   components:{
-    a,
-    d,
-    e,
+    report,
+    labor,
+    praise,
+    group,
+    reward,
   },
   setup() {
-    const value1 = ref('a');
+    const value1 = ref('labor');
     const value2 = ref();
     const currentComponent = ref();
     const aforms = ref();
     const compute = () => {
-      axios.post('http://127.0.0.1:5000/index',{
+      axios.post('/basic-api/index',{
         task:value1.value,
         date:dayjs(value2.value).format('YYYY-MM'),
       })

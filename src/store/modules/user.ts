@@ -104,7 +104,6 @@ export const useUserStore = defineStore({
       if (!this.getToken) return null;
       // get user info
       const userInfo = await this.getUserInfoAction();
-
       const sessionTimeout = this.sessionTimeout;
       if (sessionTimeout) {
         this.setSessionTimeout(false);
@@ -134,6 +133,9 @@ export const useUserStore = defineStore({
         this.setRoleList([]);
       }
       this.setUserInfo(userInfo);
+      sessionStorage.setItem('area',userInfo['area']);
+      sessionStorage.setItem('realName',userInfo['realName']);
+      sessionStorage.setItem('role',userInfo['roles'][0]['value']);
       return userInfo;
     },
     /**
@@ -143,6 +145,8 @@ export const useUserStore = defineStore({
       if (this.getToken) {
         try {
           await doLogout();
+          sessionStorage.removeItem('area');
+          sessionStorage.removeItem('role');
         } catch {
           console.log('注销Token失败');
         }

@@ -15,7 +15,7 @@ export default defineComponent({
 props:['forms'],
 setup(props,context){
     const columns = [
-  {title: '编号',dataIndex: 'num',},{title: '姓名',dataIndex: 'name',},
+  {title: '监区',dataIndex: 'area',},{title: '编号',dataIndex: 'num',},{title: '姓名',dataIndex: 'name',},
   {title: '转换日期',dataIndex: 'day',},{title: '余分',dataIndex: 'surplus',},
   {title: '等级评定',dataIndex: 'rank',},{title: '结果适用',dataIndex: 'result',}];
     const iforms = props.forms;

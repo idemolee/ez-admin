@@ -73,7 +73,7 @@ setup(props,context){
     });
   const searchInput = ref();
   const columns = [
-  {title: '编号',dataIndex: 'num',},
+  {title: '监区',dataIndex: 'area',},{title: '编号',dataIndex: 'num',},
   {
     title: '姓名',
     dataIndex: 'name',
@@ -100,7 +100,7 @@ setup(props,context){
   {title: '劳-加',dataIndex: 'add3',},{title: '劳-扣',dataIndex: 'del3',},
   {title: '超欠产',dataIndex: 'work',},{title: '月奖',dataIndex: 'yj',},
   {title: '互监组',dataIndex: 'hjz',},{title: '专项',dataIndex: 'zx',},
-  {title: '合计',dataIndex: 'total',}];
+  {title: '处罚',dataIndex: 'cf',},{title: '合计',dataIndex: 'total',}];
     const iforms = props.forms;
     const handleSearch = (selectedKeys, confirm, dataIndex) => {
       confirm();

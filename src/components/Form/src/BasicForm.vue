@@ -24,7 +24,7 @@
         </FormItem>
       </template>
 
-      <FormAction v-bind="getFormActionBindProps" @toggle-advanced="handleToggleAdvanced">
+      <FormAction v-bind="getFormActionBindProps" @toggle-advanced="handleToggleAdvanced" >
         <template
           #[item]="data"
           v-for="item in ['resetBefore', 'submitBefore', 'advanceBefore', 'advanceAfter']"
@@ -70,7 +70,6 @@
     setup(props, { emit, attrs }) {
       const formModel = reactive<Recordable>({});
       const modalFn = useModalContext();
-
       const advanceState = reactive<AdvanceState>({
         isAdvanced: true,
         hideAdvanceBtn: false,
@@ -83,7 +82,6 @@
       const propsRef = ref<Partial<FormProps>>({});
       const schemaRef = ref<Nullable<FormSchema[]>>(null);
       const formElRef = ref<Nullable<FormActionType>>(null);
-
       const { prefixCls } = useDesign('basic-form');
 
       // Get the basic configuration of the form

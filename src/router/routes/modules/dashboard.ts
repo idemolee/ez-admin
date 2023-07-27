@@ -1,5 +1,5 @@
 import type { AppRouteModule } from '/@/router/types';
-
+import { RoleEnum } from '/@/enums/roleEnum';
 import { LAYOUT } from '/@/router/constant';
 import { t } from '/@/hooks/web/useI18n';
 
@@ -9,7 +9,7 @@ const dashboard: AppRouteModule = {
   component: LAYOUT,
   redirect: '/dashboard/analysis',
   meta: {
-    orderNo: 10,
+    orderNo: 1,
     icon: 'ion:grid-outline',
     title: t('routes.dashboard.dashboard'),
   },
@@ -29,6 +29,7 @@ const dashboard: AppRouteModule = {
       component: () => import('/@/views/dashboard/workbench/index.vue'),
       meta: {
         title: t('routes.dashboard.workbench'),
+        roles: [RoleEnum.SUPER],
       },
     },
     {
@@ -37,24 +38,7 @@ const dashboard: AppRouteModule = {
       component: () => import('/@/views/dashboard/tasks/index.vue'),
       meta: {
         title: t('routes.dashboard.tasks'),
-        keepAlive:true,
-      },
-    },
-    {
-      path: 'upload',
-      name: 'Upload',
-      component: () => import('/@/views/dashboard/upload/index.vue'),
-      meta: {
-        title: t('routes.dashboard.upload'),
-        keepAlive:true,
-      },
-    },
-    {
-      path: 'search',
-      name: 'Search',
-      component: () => import('/@/views/dashboard/search/index.vue'),
-      meta: {
-        title: t('routes.dashboard.search'),
+        roles: [RoleEnum.SUPER,RoleEnum.ADMIN,RoleEnum.MANAGE],
         keepAlive:true,
       },
     },

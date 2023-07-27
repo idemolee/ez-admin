@@ -1,6 +1,6 @@
 <template>
-  <a-col v-bind="actionColOpt" v-if="showActionButtonGroup">
-    <div style="width: 100%" :style="{ textAlign: actionColOpt.style.textAlign }">
+  <!-- <a-col v-bind="actionColOpt" v-if="showActionButtonGroup"> -->
+    <div style="width:20%" :style="{ textAlign: actionColOpt.style.textAlign }">
       <FormItem>
         <slot name="resetBefore"></slot>
         <Button
@@ -37,7 +37,7 @@
         <slot name="advanceAfter"></slot>
       </FormItem>
     </div>
-  </a-col>
+  <!-- </a-col> -->
 </template>
 <script lang="ts">
   import type { ColEx } from '../types/index';

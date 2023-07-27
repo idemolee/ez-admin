@@ -6,7 +6,7 @@
     <a-select
     v-model:value="value"
     show-search
-    placeholder="input search text"
+    placeholder="请输入姓名搜索"
     style="width: 700px"
     :allowClear="true"
     :default-active-first-option="false"
@@ -27,7 +27,7 @@
 <script>
 import axios from 'axios';
 import detailForm from './mans.vue'
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, shallowRef } from 'vue';
 import { validateSearch } from 'ant-design-vue/lib/vc-mentions/src/util';
 let timeout;
 let currentValue = '';
@@ -39,11 +39,11 @@ function fetch(value, callback) {
   currentValue = value;
   function fake() {
     if(value){
-    axios.post('http://127.0.0.1:5000/search',{values:value}).then(response => {
+    axios.post('/basic-api/search',{values:value}).then(response => {
       if (currentValue === value) {
         const result = response.data.result;
         const data = [];
-        result.forEach(r => {data.push({value: r,label: r,});});
+        result.forEach(r => {data.push({value: r.id,label: r.name,});});
         callback(data);
       }
     });
@@ -53,23 +53,22 @@ function fetch(value, callback) {
 }
 
 export default defineComponent({
+  name:'SearchPage',
   components:{
     detailForm,
   },
   setup() {
     const data = ref([]);
     const value = ref();
-    const currentComponent = ref();
+    const currentComponent = shallowRef();
     const manform = ref();
     const handleSearch = val => {
-      console.log(val)
       fetch(val, d => data.value = d);
     };
     const handleChange = val => {
-      console.log(val);
       value.value = val;
       if(val){
-      axios.post('http://127.0.0.1:5000/manform',{values:val.slice(0,10)}).then(response => {
+      axios.post('/basic-api/manform',{values:val}).then(response => {
         manform.value = response.data;
         currentComponent.value = detailForm;
       });

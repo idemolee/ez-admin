@@ -58,7 +58,7 @@
       valueField: propTypes.string.def('value'),
       immediate: propTypes.bool.def(true),
     },
-    emits: ['options-change', 'change'],
+    emits: ['options-change', 'change','update:value'],
     setup(props, { emit }) {
       const options = ref<OptionsItem[]>([]);
       const loading = ref(false);
@@ -132,8 +132,9 @@
         emit('options-change', unref(getOptions));
       }
 
-      function handleChange(_, ...args) {
+      function handleChange(value, ...args) {
         emitData.value = args;
+        emit('update:value',value)
       }
 
       return { state, attrs, getOptions, loading, t, handleFetch, handleChange };
